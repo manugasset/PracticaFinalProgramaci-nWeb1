@@ -4,12 +4,25 @@ import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import PlaylistDisplay from '@/components/PlaylistDisplay';
 import { getCurrentUser, generatePlaylist } from '@/lib/spotify';
+import Artist from '@/components/widgets/Artist';
+import Decade from '@/components/widgets/Decade';
+import Genre from '@/components/widgets/Genre';
+import Mood from '@/components/widgets/Mood';
+import Popularity from '@/components/widgets/Popularity';
 
 export default function Dashboard() {
 
   const [user, setUser] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [preferences, setPreferences] = useState({
+    artists: [],
+    genres: [],
+    decades: [],
+    mood: [],
+    popularity: [0, 100],
+  });
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,13 +35,6 @@ export default function Dashboard() {
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const preferences = {
-        artists: [],
-        genres: [],
-        decades: [],
-        popularity: [0, 100],
-      };
-
       const playlistTracks = await generatePlaylist(preferences);
       setTracks(playlistTracks);
 
@@ -39,17 +45,30 @@ export default function Dashboard() {
     }
   };
 
-  const handleClear = () => setTracks([]);
-
+  const handleClear = () => {
+    setTracks([]);
+    setPreferences({
+      artists: [],
+      genres: [],
+      decades: [],
+      mood: [],
+      popularity: [0, 100],
+    });
+  };
+  
   return (
 
     <div className="min-h-screen bg-black text-white">
       <Header user={user} />
 
-      <main className="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-[2fr,minmax(0,2fr)] gap-6">
+      <main className="max-w-6xl px-4 py-6 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8">
+        <section className="space-y-4 w-full max-w-sm">
 
-        <section className="space-y-4">
-
+          <Artist selectedArtists={preferences.artists} onChange={(artists) => setPreferences((prev) => ({ ...prev, artists }))}/>
+          <Decade selectedDecades={preferences.decades} onChange={(decades) => setPreferences((prev) => ({ ...prev, decades }))}/>
+          <Genre selectedGenres={preferences.genres} onChange={(genres) =>setPreferences((prev) => ({ ...prev, genres }))}/>
+          <Mood selectedMoods={preferences.mood} onChange={(mood) => setPreferences((prev) => ({ ...prev, mood }))}/>
+          <Popularity selectedRange={preferences.popularity} onChange={(range) => setPreferences((prev) => ({ ...prev, popularity: range }))}/>
           <button onClick={handleGenerate} className="cursor-pointer mt-4 px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-black font-mono text-sm">
             {loading ? 'Generando...' : 'Generar playlist'}
           </button>

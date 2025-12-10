@@ -13,7 +13,7 @@ export default function Header({ user }) {
   };
 
   const avatar =
-    user?.images?.[0]?.url || '';
+    user?.images?.[0]?.url || null;
 
   const displayName = user?.display_name || user?.id || 'Usuario';
 

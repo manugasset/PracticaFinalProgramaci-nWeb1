@@ -4,7 +4,7 @@ import TrackCard from '@/components/TrackCard';
 export default function PlaylistDisplay({ tracks, title = 'Tu playlist', onClear }) {
 
     return (
-        <section className="w-full h-full flex flex-col bg-gray-900 border-l border-gray-800">
+        <section className="w-full h-full flex flex-col rounded-lg bg-gray-900 border-l border-gray-800">
 
             <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between">
                 <div>
