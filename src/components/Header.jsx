@@ -5,18 +5,20 @@ import { logout } from '@/lib/auth';
 
 export default function Header({ user }) {
 
+  //Uso de useRouter para que podamos redirigir a la página principal al hacer logout
   const router = useRouter();
 
+  //Función para volver a la página principal al hacer logout
   const handleLogout = () => {
     logout();
     router.push('/');
   };
 
-  const avatar =
-    user?.images?.[0]?.url || null;
-
+  //Obtenemos el avatar y el nombre de usuario
+  const avatar = user?.images?.[0]?.url || null;
   const displayName = user?.display_name || user?.id || 'Usuario';
 
+  //Devolvemos el heade con un título, el avatar y nombre de usuario, y el botón de logout
   return (
     <header className="w-full bg-gray-900 border-b border-gray-800">
         <div className="max-w-5xl mx-auto grid grid-cols-3 px-4 py-3">

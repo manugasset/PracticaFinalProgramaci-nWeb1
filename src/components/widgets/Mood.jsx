@@ -4,6 +4,7 @@ const MOODS = ['Happy', 'Sad', 'Energetic', 'Calm', 'Focus'];
 
 export default function Mood({ selectedMoods, onChange }) {
 
+  //Función para seleccionar un mood
   const toggleMood = (mood) => {
     const exists = selectedMoods.includes(mood);
 
@@ -21,6 +22,7 @@ export default function Mood({ selectedMoods, onChange }) {
 
   const isSelected = (mood) => selectedMoods.includes(mood);
 
+  //Devolvemos el renderizado del componente mood
   return (
     <section className="bg-gray-900 rounded-lg border border-gray-800 p-4 space-y-3">
         <div className="flex items-center justify-between">

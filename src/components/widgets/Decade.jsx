@@ -13,6 +13,7 @@ const DECADES = [
 
 export default function Decade({ selectedDecades, onChange }) {
 
+  //Función que comprueba si una década está seleccionada, y la añadimos o eliminamos según corresponda
   const toggleDecade = (decade) => {
     const exists = selectedDecades.includes(decade);
     if (exists) {
@@ -29,6 +30,7 @@ export default function Decade({ selectedDecades, onChange }) {
 
   const isSelected = (decade) => selectedDecades.includes(decade);
 
+  //Devolvemos el renderizado del componente
   return (
 
     <section className="bg-gray-900 rounded-lg border border-gray-800 p-4 space-y-3">

@@ -1,5 +1,6 @@
 'use client';
 
+//La const LEVELS son distintos niveles de popularidad para filtrar canciones
 const LEVELS = [
 
   { id: 'very-mainstream', label: 'Muy mainstream', range: [80, 100] },
@@ -12,6 +13,7 @@ const LEVELS = [
 
 export default function Popularity({ selectedRange, onChange }) {
 
+  //Definimos el rango de popularidad seleccionado
   const isSelected = (range) =>
     selectedRange &&
     selectedRange[0] === range[0] &&
@@ -29,6 +31,7 @@ export default function Popularity({ selectedRange, onChange }) {
     }
   };
 
+  //Devolvemos el renderizado del componente Popularity
   return (
 
     <section className="bg-gray-900 rounded-lg border border-gray-800 p-4 space-y-3">

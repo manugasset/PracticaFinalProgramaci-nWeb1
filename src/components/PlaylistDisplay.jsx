@@ -3,6 +3,7 @@ import TrackCard from '@/components/TrackCard';
 
 export default function PlaylistDisplay({ tracks, title = 'Tu playlist', onClear }) {
 
+    //Devolvemos el componente playlist que contiene todas las canciones generadas 
     return (
         <section className="w-full h-full flex flex-col rounded-lg bg-gray-900 border-l border-gray-800">
 

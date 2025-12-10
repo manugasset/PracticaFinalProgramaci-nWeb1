@@ -29,6 +29,7 @@ export default function Genre({ selectedGenres, onChange }) {
 
   const [query, setQuery] = useState('');
 
+  //Buscador de géneros
   const filteredGenres = useMemo(() => {
     if (!query) return ALL_GENRES;
     return ALL_GENRES.filter((g) =>
@@ -38,6 +39,7 @@ export default function Genre({ selectedGenres, onChange }) {
     );
   }, [query]);
 
+  //Función para seleccionar/deseleccionar géneros
   const toggleGenre = (genre) => {
     const exists = selectedGenres.includes(genre);
 
@@ -55,6 +57,7 @@ export default function Genre({ selectedGenres, onChange }) {
 
   const isSelected = (genre) => selectedGenres.includes(genre);
 
+  //Devolvemos el renderizado del componente
   return (
 
     <section className="bg-gray-900 rounded-lg border border-gray-800 p-4 space-y-3">

@@ -12,6 +12,7 @@ import Popularity from '@/components/widgets/Popularity';
 
 export default function Dashboard() {
 
+  //Constantes de estado del dashboard
   const [user, setUser] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function Dashboard() {
     popularity: [0, 100],
   });
 
-
+//Obtener datos del usuario al cargar el dashboard
   useEffect(() => {
     const fetchUser = async () => {
       const data = await getCurrentUser();
@@ -32,6 +33,7 @@ export default function Dashboard() {
     fetchUser();
   }, []);
 
+  //Manejamos la generacion de la playlist llamando a la funcion generatePlaylist de lib/spotify
   const handleGenerate = async () => {
     setLoading(true);
     try {
@@ -45,6 +47,7 @@ export default function Dashboard() {
     }
   };
 
+  //Manejamos el reseteo de las preferencias
   const handleClear = () => {
     setTracks([]);
     setPreferences({
@@ -56,6 +59,7 @@ export default function Dashboard() {
     });
   };
   
+  //Devolvemos la estructura del dashboard
   return (
 
     <div className="min-h-screen bg-black text-white">

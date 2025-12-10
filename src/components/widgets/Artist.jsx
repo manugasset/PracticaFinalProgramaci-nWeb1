@@ -5,10 +5,14 @@ import { getAccessToken } from '@/lib/auth';
 
 export default function Artist({ selectedArtists, onChange }) {
 
+  //Para el input de búsqueda y resultados
   const [query, setQuery] = useState('');
+  //Para la lista de artistas que nos va a devolver la API de Spotify
   const [results, setResults] = useState([]);
+  //Para buscar
   const [loading, setLoading] = useState(false);
 
+  //Efecto para buscar artistas cuando cambia el query
   useEffect(() => {
     if (!query) {
 
@@ -17,9 +21,11 @@ export default function Artist({ selectedArtists, onChange }) {
 
     }
 
+    //Token de acceso
     const token = getAccessToken();
     const handler = setTimeout(async () => {
 
+      //Buscamos en la API de Spotify
     try {
         setLoading(true);
         const res = await fetch(`https://api.spotify.com/v1/search?type=artist&q=${encodeURIComponent(query)}&limit=10`,
@@ -30,6 +36,7 @@ export default function Artist({ selectedArtists, onChange }) {
           }
         );
 
+        //Guardamos los resultados (los artistas)
         const data = await res.json();
         setResults(data.artists?.items || []);
       } catch (e) {
@@ -47,24 +54,26 @@ export default function Artist({ selectedArtists, onChange }) {
     return () => clearTimeout(handler);
   }, [query]);
 
+    //Función para añadir o quitar artistas seleccionados
     const toggleArtist = (artist) => {
 
-        const exists = selectedArtists.some((a) => a.id === artist.id);
+      const exists = selectedArtists.some((a) => a.id === artist.id);
 
-    if (exists) {
+      if (exists) {
 
         onChange(selectedArtists.filter((a) => a.id !== artist.id));
 
-    } else {
+      } else {
 
-        if (selectedArtists.length >= 5) return; // límite 5
+        if (selectedArtists.length >= 5) return;
         onChange([...selectedArtists, artist]);
 
-    }
+      }
     };
 
   const isSelected = (id) => selectedArtists.some((artist) => artist.id === id);
 
+  //Devuelvo el componente, con el estilo que mas me gustaba
   return (
     <section className="bg-gray-900 rounded-lg border border-gray-800 p-4 space-y-3">
       <div className="flex items-center justify-between">
